@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -223,6 +226,12 @@ public class form_riwayatadmin extends javax.swing.JFrame {
 
     private void btncetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetakActionPerformed
         // TODO add your handling code here:
+        try {
+//            String path ="D:\\Project_Program\\New Folder\\Sisfo Penjualan Pulsa\\src\\Sisfo_Penjualan_pulsa\\riwayat.jrxml";
+            JasperPrint jp =JasperFillManager.fillReport(getClass().getResourceAsStream("riwayat.jasper"), null, koneksi.getkoneksi());
+            JasperViewer.viewReport(jp, true);
+        } catch (Exception e) {
+        }  
     }//GEN-LAST:event_btncetakActionPerformed
 
     /**

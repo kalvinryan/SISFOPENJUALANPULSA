@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -43,7 +46,7 @@ public class form_riwayat extends javax.swing.JFrame {
             ResultSet res = stm.executeQuery(sqldata1);
 
            while(res.next ()){
-                Object[ ] obj = new Object[4];
+                Object[ ] obj = new Object[9];
                 obj[0] = res.getString("id_transaksi");
                 obj[1] = res.getString("tanggal");
                 obj[2] = res.getString("hp");
@@ -75,6 +78,7 @@ public class form_riwayat extends javax.swing.JFrame {
         txtcari = new javax.swing.JTextField();
         btncari = new javax.swing.JButton();
         btnclose = new javax.swing.JButton();
+        btncetak1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -106,6 +110,13 @@ public class form_riwayat extends javax.swing.JFrame {
             }
         });
 
+        btncetak1.setText("Cetak");
+        btncetak1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncetak1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,12 +124,14 @@ public class form_riwayat extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btncari)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                        .addComponent(btncetak1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnclose)))
                 .addContainerGap())
         );
@@ -129,13 +142,14 @@ public class form_riwayat extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btncari)
-                    .addComponent(btnclose))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(btnclose)
+                    .addComponent(btncetak1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(159, 159, 159))
         );
 
-        setSize(new java.awt.Dimension(813, 297));
+        setSize(new java.awt.Dimension(813, 217));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,6 +198,16 @@ public class form_riwayat extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btncariActionPerformed
 
+    private void btncetak1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetak1ActionPerformed
+        // TODO add your handling code here:
+        try {
+//            String path ="D:\\Project_Program\\New Folder\\Sisfo Penjualan Pulsa\\src\\Sisfo_Penjualan_pulsa\\riwayat.jrxml";
+            JasperPrint jp =JasperFillManager.fillReport(getClass().getResourceAsStream("riwayat.jasper"), null, koneksi.getkoneksi());
+            JasperViewer.viewReport(jp, true);
+        } catch (Exception e) {
+        }  
+    }//GEN-LAST:event_btncetak1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -221,6 +245,7 @@ public class form_riwayat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncari;
+    private javax.swing.JButton btncetak1;
     private javax.swing.JButton btnclose;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbtabel;
