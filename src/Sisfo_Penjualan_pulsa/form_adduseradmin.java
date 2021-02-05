@@ -77,7 +77,6 @@ public class form_adduseradmin extends javax.swing.JFrame {
         btnhapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jLabel1.setText("TAMBAH ADMIN");
 
@@ -225,7 +224,7 @@ public class form_adduseradmin extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(486, 430));
+        setSize(new java.awt.Dimension(502, 469));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

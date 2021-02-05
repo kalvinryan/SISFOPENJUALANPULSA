@@ -80,7 +80,6 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
         txtjumlah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jLabel1.setText("TRANSAKSI PULSA TELKOMSEL");
 
@@ -247,7 +246,7 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(747, 287));
+        setSize(new java.awt.Dimension(763, 326));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

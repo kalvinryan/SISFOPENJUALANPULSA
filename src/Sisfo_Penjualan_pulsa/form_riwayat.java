@@ -81,7 +81,6 @@ public class form_riwayat extends javax.swing.JFrame {
         btncetak1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         tbtabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,7 +148,7 @@ public class form_riwayat extends javax.swing.JFrame {
                 .addGap(159, 159, 159))
         );
 
-        setSize(new java.awt.Dimension(813, 217));
+        setSize(new java.awt.Dimension(829, 256));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

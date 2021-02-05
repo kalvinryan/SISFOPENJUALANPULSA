@@ -174,7 +174,6 @@ public class form_DataPulsaTRI extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jLabel1.setText("Data Pulsa TRI");
 
@@ -354,7 +353,7 @@ public class form_DataPulsaTRI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(755, 464));
+        setSize(new java.awt.Dimension(771, 503));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

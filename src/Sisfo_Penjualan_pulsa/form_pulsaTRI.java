@@ -71,7 +71,6 @@ public class form_pulsaTRI extends javax.swing.JFrame {
         txtjumlah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jLabel1.setText("TRANSAKSI PULSA TRI");
 
@@ -238,7 +237,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                 .addContainerGap(76, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(747, 286));
+        setSize(new java.awt.Dimension(763, 325));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
