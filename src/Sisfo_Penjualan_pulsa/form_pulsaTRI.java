@@ -21,6 +21,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
     public form_pulsaTRI() {
         initComponents();
 //        data();
+        
         cmbpulsa.addItem("Reguler");
         cmbpulsa.addItem("Data");
         txtstock.setVisible(false);
@@ -29,6 +30,9 @@ public class form_pulsaTRI extends javax.swing.JFrame {
         
     }
      
+    public void refresh(){
+        cmbharga.addItem(null);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,6 +71,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
         txtjumlah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setText("TRANSAKSI PULSA TRI");
 
@@ -235,10 +240,10 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                     .addComponent(btntransfer)
                     .addComponent(btnbersihkan)
                     .addComponent(btnclose))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(763, 340));
+        setSize(new java.awt.Dimension(747, 286));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -289,6 +294,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
 
     private void cmbpulsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbpulsaActionPerformed
         if (cmbpulsa.getSelectedItem().equals("Reguler")) {
+            cmbharga.removeAllItems();
             String kd="";
             try{
                 Connection c =koneksi.getkoneksi();
@@ -303,7 +309,8 @@ public class form_pulsaTRI extends javax.swing.JFrame {
             }catch(Exception e){
 
             }
-        }else{
+        }else {
+            cmbharga.removeAllItems();
             String kd="";
             try{
                 Connection c =koneksi.getkoneksi();
@@ -316,7 +323,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                     txtkartu.setText(res.getString("namakartu"));
                 }
             }catch(Exception e){
-
+                
             }
         }
     }//GEN-LAST:event_cmbpulsaActionPerformed
@@ -328,7 +335,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                try{
                    Connection c =koneksi.getkoneksi();
                    Statement stm = c.createStatement();
-                   String sqldata="select * from tb_pulsatrireguler";
+                   String sqldata="select * from tb_pulsatrireguler where beli like '%"+cmbharga.getSelectedItem()+"%'";
                    ResultSet res = stm.executeQuery(sqldata);
                    while(res.next()){
                        txtidpulsa.setText(res.getString("idpulsa"));
@@ -349,7 +356,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                try{
                    Connection c =koneksi.getkoneksi();
                    Statement stm = c.createStatement();
-                   String sqldata="select * from tb_pulsatridata";
+                   String sqldata="select * from tb_pulsatridata where beli like '%"+cmbharga.getSelectedItem()+"%'";
                    ResultSet res = stm.executeQuery(sqldata);
                    while(res.next()){
                        txtidpulsa.setText(res.getString("idpulsa"));

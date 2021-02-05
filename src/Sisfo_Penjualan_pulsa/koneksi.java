@@ -32,4 +32,13 @@ public class koneksi {
         }
         return koneksi;
     }
+     public static Connection closeKoneksi() {
+
+        try {
+            koneksi.close();
+        } catch (Exception e) {
+        }
+        return koneksi;
+    }
+     
 }

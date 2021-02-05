@@ -24,6 +24,7 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
     public form_pulsaTelkomsel() {
         initComponents();
 //        data();
+        
         cmbpulsa.addItem("Reguler");
         cmbpulsa.addItem("Data");
         txtstock.setVisible(false);
@@ -79,6 +80,7 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
         txtjumlah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setText("TRANSAKSI PULSA TELKOMSEL");
 
@@ -90,7 +92,6 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
 
         jLabel5.setText("HARGA");
 
-        cmbharga.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilihan" }));
         cmbharga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbhargaActionPerformed(evt);
@@ -248,10 +249,10 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
                     .addComponent(btntransfer)
                     .addComponent(btnbersihkan)
                     .addComponent(btnclose))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(763, 340));
+        setSize(new java.awt.Dimension(747, 287));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -290,6 +291,7 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
                         pst.executeUpdate();  
                     }
                     JOptionPane.showMessageDialog(null, " Pulsa Berhasil Terkirim");
+                     cmbpulsa.addItem(null);
             }
             catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
@@ -302,11 +304,12 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
 
     private void cmbpulsaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbpulsaActionPerformed
         if (cmbpulsa.getSelectedItem().equals("Reguler")) {
+           cmbharga.removeAllItems();
             String kd="";
             try{
                 Connection c =koneksi.getkoneksi();
                 Statement stm = c.createStatement();
-                String sqldata="select * from tb_pulsatelkomreguler ";
+                String sqldata="select distinct * from tb_pulsatelkomreguler ";
                 ResultSet res = stm.executeQuery(sqldata);
                 while(res.next()){
                     cmbharga.addItem(res.getString("beli"));
@@ -316,12 +319,14 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
             }catch(Exception e){
 
             }
-        }else if(cmbpulsa.getSelectedItem().equals("Data")){
+//            koneksi.closeKoneksi();
+        }else{
+            cmbharga.removeAllItems();
             String kd="";
             try{
                 Connection c =koneksi.getkoneksi();
                 Statement stm = c.createStatement();
-                String sqldata="select * from tb_pulsatelkomdata";
+                String sqldata="select distinct * from tb_pulsatelkomdata";
                 ResultSet res = stm.executeQuery(sqldata);
                 while(res.next()){
                     cmbharga.addItem(res.getString("beli"));
@@ -331,19 +336,16 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
             }catch(Exception e){
                 
             }
+//            koneksi.closeKoneksi();
         }
-        else{
-            cmbharga.addItem("");
-            txtoperator.setText("");
-            txtkartu.setText("");
-        }
+        
         
     }//GEN-LAST:event_cmbpulsaActionPerformed
 
     private void cmbhargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbhargaActionPerformed
+       int stock;
         if(cmbpulsa.getSelectedItem().equals("Reguler")){
-            String kd="";
-            int stock,jumlah;
+            String kd="";            
                try{
                    Connection c =koneksi.getkoneksi();
                    Statement stm = c.createStatement();
@@ -358,23 +360,24 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
                        }else{
                            txtstock.setText(Integer.toString(stock));
                        }
+                       
                    }
+//                   koneksi.closeKoneksi();
                }catch(Exception e){
 
                }
         }else{
-            String kd="";
-            int stock,jumlah;
+                        
+            String kd="";            
                try{
                    Connection c =koneksi.getkoneksi();
                    Statement stm = c.createStatement();
-                   String sqldata="select * from tb_pulsatelkomdata";
+                   String sqldata="select * from tb_pulsatelkomdata where beli like '%"+cmbharga.getSelectedItem()+"%'";
                    ResultSet res = stm.executeQuery(sqldata);
                    while(res.next()){
                        txtidpulsa.setText(res.getString("idpulsa"));
                        txtharga.setText(res.getString("jual"));
-                       stock =res.getInt("stock");
-                       
+                       stock =res.getInt("stock");                       
                        if(stock<1){
                            JOptionPane.showMessageDialog(null, "Pulsa "+res.getString("beli")+" "+res.getString("namakartu"));
                        }else{
@@ -384,6 +387,8 @@ public class form_pulsaTelkomsel extends javax.swing.JFrame {
                }catch(Exception e){
 
                }
+//               koneksi.closeKoneksi();
+               
         }
        
     }//GEN-LAST:event_cmbhargaActionPerformed
