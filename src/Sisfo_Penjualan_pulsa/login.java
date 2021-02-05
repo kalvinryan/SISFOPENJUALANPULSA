@@ -32,6 +32,7 @@ public class login extends javax.swing.JFrame {
         txtpassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         txtusername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +85,7 @@ public class login extends javax.swing.JFrame {
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(416, 287));
+        setSize(new java.awt.Dimension(400, 248));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

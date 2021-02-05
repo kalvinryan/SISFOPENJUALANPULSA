@@ -25,6 +25,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
         cmbpulsa.addItem("Data");
         txtstock.setVisible(false);
         txtidpulsa.setVisible(false);
+        txtjumlah.setVisible(false);
         
     }
      
@@ -63,6 +64,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
         txtharga = new javax.swing.JTextField();
         txtstock = new javax.swing.JTextField();
         txtidpulsa = new javax.swing.JTextField();
+        txtjumlah = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,6 +185,8 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                         .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtjumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -218,7 +222,8 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtjumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtbayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,7 +235,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                     .addComponent(btntransfer)
                     .addComponent(btnbersihkan)
                     .addComponent(btnclose))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(763, 340));
@@ -242,7 +247,11 @@ public class form_pulsaTRI extends javax.swing.JFrame {
     }//GEN-LAST:event_btncloseActionPerformed
 
     private void btntransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntransferActionPerformed
-           try{
+         int jumlah,stock;
+           stock=Integer.parseInt(txtstock.getText());
+           jumlah=stock-1;
+           txtjumlah.setText(Integer.toString(jumlah));   
+          try{
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String hari = sdf.format(dttanggal.getDate().getTime());
                     Connection c = koneksi.getkoneksi();
@@ -256,14 +265,14 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                         c =koneksi.getkoneksi();
                         String sqldata2 = "UPDATE tb_pulsatrireguler set stock=? where idpulsa=?";
                         pst=c.prepareStatement(sqldata2);
-                        pst.setString(1, txtstock.getText());
+                        pst.setString(1, txtjumlah.getText());
                         pst.setString(2, txtidpulsa.getText());                  
                         pst.executeUpdate();  
                     }else{
                         c =koneksi.getkoneksi();
                         String sqldata2 = "UPDATE tb_pulsatridata set stock=? where idpulsa=?";
                         pst=c.prepareStatement(sqldata2);
-                        pst.setString(1, txtstock.getText());
+                        pst.setString(1, txtjumlah.getText());
                         pst.setString(2, txtidpulsa.getText());                  
                         pst.executeUpdate();  
                     }
@@ -289,8 +298,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                 while(res.next()){
                     cmbharga.addItem(res.getString("beli"));
                     txtoperator.setText(res.getString("namaoperator"));
-                    txtkartu.setText(res.getString("namakartu"));
-                    txtidpulsa.setText(res.getString("idpulsa"));
+                    txtkartu.setText(res.getString("namakartu"));                    
                 }
             }catch(Exception e){
 
@@ -323,13 +331,13 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                    String sqldata="select * from tb_pulsatrireguler";
                    ResultSet res = stm.executeQuery(sqldata);
                    while(res.next()){
+                       txtidpulsa.setText(res.getString("idpulsa"));
                        txtharga.setText(res.getString("jual"));
-                       stock =res.getInt("stock");
-                       jumlah = stock - 1;
-                       if(stock<jumlah){
+                       stock =res.getInt("stock");                       
+                       if(stock<1){
                            JOptionPane.showMessageDialog(null, "Pulsa "+res.getString("beli")+" "+res.getString("namakartu"));
                        }else{
-                           txtstock.setText(Integer.toString(jumlah));
+                           txtstock.setText(Integer.toString(stock));
                        }
                    }
                }catch(Exception e){
@@ -344,13 +352,13 @@ public class form_pulsaTRI extends javax.swing.JFrame {
                    String sqldata="select * from tb_pulsatridata";
                    ResultSet res = stm.executeQuery(sqldata);
                    while(res.next()){
+                       txtidpulsa.setText(res.getString("idpulsa"));
                        txtharga.setText(res.getString("jual"));
-                       stock =res.getInt("stock");
-                       jumlah = stock - 1;
-                       if(stock<jumlah){
+                       stock =res.getInt("stock");                       
+                       if(stock<1){
                            JOptionPane.showMessageDialog(null, "Pulsa "+res.getString("beli")+" "+res.getString("namakartu"));
                        }else{
-                           txtstock.setText(Integer.toString(jumlah));
+                           txtstock.setText(Integer.toString(stock));
                        }
                    }
                }catch(Exception e){
@@ -432,6 +440,7 @@ public class form_pulsaTRI extends javax.swing.JFrame {
     private javax.swing.JTextField txtharga;
     private javax.swing.JTextField txthp;
     private javax.swing.JTextField txtidpulsa;
+    private javax.swing.JTextField txtjumlah;
     private javax.swing.JTextField txtkartu;
     private javax.swing.JTextField txtkembalian;
     private javax.swing.JTextField txtoperator;
